@@ -87,6 +87,9 @@
     <string name="mobile_settings_hidden_upcoming_channels">Hide on channel pages</string>
     <string name="mobile_settings_hidden_live">Live streams</string>
     <string name="mobile_settings_hidden_live_subscriptions">Hide live streams in Subscriptions</string>
+    <string name="mobile_blocked_title_terms">Blocked words</string>
+    <string name="mobile_blocked_title_terms_summary">Hide matching video titles in feeds and Up next</string>
+    <string name="mobile_blocked_title_terms_hint">Separate words or phrases with commas. Add * at the end to match word beginnings. Changes apply when lists reload.</string>
     <string name="mobile_settings_video_menu">Video menu</string>
     <string name="mobile_settings_video_menu_summary">Choose what the ⋮ menu offers</string>
     <string name="mobile_settings_video_menu_note">What the ⋮ menu on a video offers, and the menu you get by holding a tab. An item only shows where it applies.</string>
