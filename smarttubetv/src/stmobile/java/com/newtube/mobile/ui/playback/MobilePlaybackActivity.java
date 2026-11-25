@@ -8378,6 +8378,9 @@ public class MobilePlaybackActivity extends MobileActivity
         Video current = getVideo();
         String currentId = current != null ? current.videoId : null;
         Integer queueId = findQueueGroupId(current);
+        com.newtube.mobile.ui.common.BlockedTitleFilter blocked =
+                new com.newtube.mobile.ui.common.BlockedTitleFilter(
+                        com.newtube.mobile.ui.common.BlockedTitleFilter.getTerms(this));
 
         for (Map.Entry<Integer, List<Video>> entry : mSuggestionVideos.entrySet()) {
             boolean isQueueRow = queueId != null && queueId.equals(entry.getKey());
@@ -8391,7 +8394,8 @@ public class MobilePlaybackActivity extends MobileActivity
                 }
                 if (isQueueRow) {
                     mQueueVideos.add(v);
-                } else if (currentId == null || !currentId.equals(v.videoId)) {
+                } else if ((currentId == null || !currentId.equals(v.videoId))
+                        && (v.videoId == null || !blocked.matches(v.getTitle()))) {
                     // Match by videoId, not Video.equals (unreliable across instances).
                     mRelatedVideos.add(v);
                 }
