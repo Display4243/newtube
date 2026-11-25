@@ -85,6 +85,9 @@
     <string name="mobile_settings_hidden_upcoming_channels">Ocultar en las páginas de canal</string>
     <string name="mobile_settings_hidden_live">Directos</string>
     <string name="mobile_settings_hidden_live_subscriptions">Ocultar directos en Suscripciones</string>
+    <string name="mobile_blocked_title_terms">Palabras bloqueadas</string>
+    <string name="mobile_blocked_title_terms_summary">Oculta títulos coincidentes en los feeds y A continuación</string>
+    <string name="mobile_blocked_title_terms_hint">Separa palabras o frases con comas. Añade * al final para bloquear palabras que empiecen así. Los cambios se aplican al recargar las listas.</string>
     <string name="mobile_settings_video_menu">Menú de vídeo</string>
     <string name="mobile_settings_video_menu_summary">Elige qué ofrece el menú ⋮</string>
     <string name="mobile_settings_video_menu_note">Lo que ofrece el menú ⋮ de un vídeo y el menú que sale al mantener pulsada una pestaña. Cada opción solo aparece donde tiene sentido.</string>
