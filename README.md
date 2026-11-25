@@ -34,6 +34,15 @@ and cast to SmartTube on your TV.
 
 ## Features
 
+This personal fork can hide video titles in recommendation feeds and Up next using comma-separated
+words or phrases in Settings → Feeds → Hidden videos → Blocked words. Matching ignores case and
+accents; append `*` to match word beginnings. Search, channel pages and playback queues are not
+filtered. The filter affects the displayed lists, not YouTube's autoplay selection.
+
+The Personal APK GitHub Actions workflow builds debug APKs. They install alongside the official
+app, but GitHub's fresh debug key changes on each run, so updating requires uninstalling the previous
+debug build.
+
 <table>
 <tr>
 <td width="50%" valign="top">
