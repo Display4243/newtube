@@ -1,6 +1,7 @@
 package com.newtube.mobile.ui.settings;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
@@ -24,6 +25,7 @@ import com.liskovsoft.smartyoutubetv2.tv.R;
 import com.liskovsoft.youtubeapi.service.internal.MediaServiceData;
 import com.newtube.mobile.CardMenuMigration;
 import com.newtube.mobile.ui.common.MobileSnackbar;
+import com.newtube.mobile.ui.common.BlockedTitleFilter;
 import com.newtube.mobile.ui.common.ThemeMode;
 
 import java.util.ArrayList;
@@ -291,6 +293,21 @@ final class AppPages {
     static SettingsPages.Page hidden(Context context) {
         List<SettingsRow> rows = new ArrayList<>();
         MediaServiceData data = MediaServiceData.instance();
+
+        rows.add(SettingsRow.action(context.getString(R.string.mobile_blocked_title_terms),
+                context.getString(R.string.mobile_blocked_title_terms_summary), page -> {
+                    EditText input = new EditText(page.requireContext());
+                    input.setSingleLine(false);
+                    input.setText(BlockedTitleFilter.getTerms(page.requireContext()));
+                    new MaterialAlertDialogBuilder(page.requireContext())
+                            .setTitle(R.string.mobile_blocked_title_terms)
+                            .setMessage(R.string.mobile_blocked_title_terms_hint)
+                            .setView(input)
+                            .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                                    BlockedTitleFilter.setTerms(page.requireContext(), input.getText().toString()))
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
+                }));
 
         rows.add(SettingsRow.header(context.getString(R.string.mobile_settings_hidden_watched)));
         rows.add(hiddenToggle(context, data, R.string.mobile_settings_hidden_watched_home, 0, MediaServiceData.CONTENT_WATCHED_HOME));
