@@ -2469,8 +2469,9 @@ public class MobileBrowseActivity extends MobileActivity
         // recomputes both hashCodes per comparison). Same answer: Video.equals is "same hashCode
         // and same isMix()", so equal videos always share a bucket.
         java.util.Set<Video> present = new java.util.HashSet<>(mCurrentVideos);
+        com.newtube.mobile.ui.common.BlockedTitleFilter blocked = blockedFeedTitles();
         for (Video video : videos) {
-            if (isVisibleFeedItem(video) && present.add(video)) {
+            if (isVisibleFeedItem(video, blocked) && present.add(video)) {
                 mCurrentVideos.add(video);
             }
         }
@@ -2483,22 +2484,38 @@ public class MobileBrowseActivity extends MobileActivity
      * has no Shorts, so none are shown in any section ({@link ShortsFilter}). Keep true playlists
      * (which use a similar service shape), and leave channel discovery to Search.
      */
-    private static List<Video> visibleFeedItems(List<Video> videos) {
+    private List<Video> visibleFeedItems(List<Video> videos) {
         List<Video> visible = new ArrayList<>();
         if (videos == null) {
             return visible;
         }
+        com.newtube.mobile.ui.common.BlockedTitleFilter blocked = blockedFeedTitles();
         for (Video video : videos) {
-            if (isVisibleFeedItem(video)) {
+            if (isVisibleFeedItem(video, blocked)) {
                 visible.add(video);
             }
         }
         return visible;
     }
 
-    private static boolean isVisibleFeedItem(Video video) {
+    private com.newtube.mobile.ui.common.BlockedTitleFilter blockedFeedTitles() {
+        boolean recommendations = mCurrentSectionId == MediaGroup.TYPE_HOME
+                || mCurrentSectionId == MediaGroup.TYPE_SUBSCRIPTIONS
+                || mCurrentSectionId == MediaGroup.TYPE_TRENDING
+                || mCurrentSectionId == MediaGroup.TYPE_KIDS_HOME
+                || mCurrentSectionId == MediaGroup.TYPE_SPORTS
+                || mCurrentSectionId == MediaGroup.TYPE_LIVE
+                || mCurrentSectionId == MediaGroup.TYPE_GAMING
+                || mCurrentSectionId == MediaGroup.TYPE_NEWS
+                || mCurrentSectionId == MediaGroup.TYPE_MUSIC;
+        return new com.newtube.mobile.ui.common.BlockedTitleFilter(recommendations
+                ? com.newtube.mobile.ui.common.BlockedTitleFilter.getTerms(this) : "");
+    }
+
+    private static boolean isVisibleFeedItem(Video video, com.newtube.mobile.ui.common.BlockedTitleFilter blocked) {
         return video != null
                 && !ShortsFilter.isShort(video)
+                && (video.videoId == null || !blocked.matches(video.getTitle()))
                 && (!video.isChannel() || video.isPlaylistAsChannel())
                 && !isSearchQueryTile(video);
     }
